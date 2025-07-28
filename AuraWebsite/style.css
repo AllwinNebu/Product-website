@@ -271,6 +271,39 @@ body.scrolled .corner-logo {
     transform: scale(1);
 }
 
+.hero-header-icons {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    left: auto;
+    display: flex;
+    gap: 1.2rem;
+    z-index: 10;
+}
+.icon-btn {
+    background: rgba(0,0,0,0.25);
+    border: none;
+    border-radius: 50%;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px #0004;
+}
+.icon-btn:hover, .icon-btn:focus {
+    background: rgba(0,0,0,0.45);
+    box-shadow: 0 4px 16px #0072ff55;
+    outline: none;
+}
+.hero-header-icons svg {
+    display: block;
+    stroke: #fff;
+    width: 28px;
+    height: 28px;
+}
+
 @media (max-width: 700px) {
     .brand-title {
         font-size: 2.2rem;
