@@ -1,28 +1,35 @@
-// Show product grid when scrolling past hero, and animate in corner products
+// Show product grid sections when scrolling past hero, and animate in corner products
 window.addEventListener('DOMContentLoaded', () => {
-    const productSection = document.querySelector('.product-grid-section');
+    const productSections = document.querySelectorAll('.product-grid-section');
     const heroSection = document.querySelector('.hero-section');
-    const cornerProducts = document.querySelectorAll('.product-card.animate-corner');
-
-    // Fade in product grid section when hero is out of view
-    const productSectionObserver = new IntersectionObserver((entries) => {
+    // Toggle logo in corner when not on hero
+    const body = document.body;
+    const heroObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                productSection.classList.add('visible');
+                body.classList.remove('scrolled');
+            } else {
+                body.classList.add('scrolled');
             }
         });
-    }, { threshold: 0.2 });
-    productSectionObserver.observe(productSection);
+    }, { threshold: 0.5 });
+    if (heroSection) heroObserver.observe(heroSection);
 
-    // Animate in corner products as they come into view
-    const cornerObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, { threshold: 0.3 });
-    cornerProducts.forEach(card => cornerObserver.observe(card));
+    productSections.forEach(section => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    section.classList.add('visible');
+                    // Animate corner products if present in this section
+                    const cornerProducts = section.querySelectorAll('.product-card.animate-corner');
+                    cornerProducts.forEach(card => {
+                        card.classList.add('visible');
+                    });
+                }
+            });
+        }, { threshold: 0.2 });
+        observer.observe(section);
+    });
 });
 
 console.log("Website scripts loaded!");
